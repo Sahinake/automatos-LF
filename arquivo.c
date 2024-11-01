@@ -129,7 +129,7 @@ int main() {
     input[length] = '\0'; // Adiciona o terminador nulo para a string
 
     // Imprimir a string de entrada
-    printf("Entrada: %s\n", input);
+    // printf("Entrada: %s\n", input);
 
     if (S(input, &pos) && pos == length) printf("sim\n");
     else printf("nao\n");
