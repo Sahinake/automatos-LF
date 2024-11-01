@@ -10,10 +10,9 @@ int S(const char *input, int *pos) {
     int i = *pos;
     // acBabA
     if (input[i] == 'a' && input[i + 1] == 'c') { 
-        *pos = i + 2;
-        int j = *pos;
-        if (B(input, pos) && input[j + 1] == 'a' && input[j + 2] == 'b') {
-            *pos = j + 3;
+        *pos += 2;
+        if (B(input, pos) && input[*pos] == 'a' && input[*pos + 1] == 'b') {
+            *pos += 2;
             if(A(input, pos)) {
                 return 1; 
             }
@@ -23,10 +22,9 @@ int S(const char *input, int *pos) {
     *pos = i;
     // bcBcC
     if (input[i] == 'b' && input[i + 1] == 'c') { 
-        *pos = i + 2;
-        int j = *pos;
-        if (B(input, pos) && input[j + 1] == 'c') {
-            *pos = j + 2;
+        *pos += 2;
+        if (B(input, pos) && input[*pos] == 'c') {
+            *pos += 1;
             if(C(input, pos)) {
                 return 1;
             }
@@ -36,7 +34,7 @@ int S(const char *input, int *pos) {
     *pos = i;
     // cbC
     if (input[i] == 'c' && input[i + 1] == 'b') { 
-        *pos = i + 2;
+        *pos += 2;
         if (C(input, pos)) return 1; 
     }
 
@@ -48,21 +46,21 @@ int A(const char *input, int *pos) {
     int i = *pos;
     // abaC
     if (input[i] == 'a' && input[i + 1] == 'b' && input[i + 2] == 'a') { 
-        *pos = i + 3;
+        *pos += 3;
         if (C(input, pos)) return 1; 
     }
 
     *pos = i;
     // baB
     if (input[i] == 'b' && input[i + 1] == 'a') { 
-        *pos = i + 2; 
+        *pos += 2; 
         if (B(input, pos)) return 1; 
     }
 
     *pos = i;
     // cb
     if (input[i] == 'c' && input[i + 1] == 'b') { 
-        *pos = i + 2; 
+        *pos += 2; 
         return 1; 
     }
 
@@ -74,19 +72,19 @@ int B(const char *input, int *pos) {
     int i = *pos;
     // cC
     if (input[i] == 'c') { 
-        *pos = i + 1; 
+        *pos += 1;  
         if (C(input, pos)) return 1; 
     }
     *pos = i;
     // abA
     if (input[i] == 'a' && input[i + 1] == 'b') { 
-        *pos = i + 2; 
+        *pos += 2;  
         if (A(input, pos)) return 1; 
     }
     *pos = i;
     // b
     if (input[i] == 'b') { 
-        *pos = i + 1;  
+        *pos += 1;  
         return 1; 
     }
     *pos = i;
@@ -97,19 +95,19 @@ int C(const char *input, int *pos) {
     int i = *pos;
     // aaB
     if (input[i] == 'a' && input[i + 1] == 'a') { 
-        *pos = i + 2; 
+        *pos += 2;  
         if (B(input, pos)) return 1; 
     }
     *pos = i;
     // cA
     if (input[i] == 'c') { 
-        *pos = i + 1; 
+        *pos += 1;  
         if (A(input, pos)) return 1; 
     }
     *pos = i;
     // ba
     if (input[i] == 'b' && input[i + 1] == 'a') { 
-        *pos = i + 2; 
+        *pos += 2; 
         return 1; 
     }
     *pos = i;
@@ -128,7 +126,10 @@ int main() {
         length++;
     }
 
-    input[length + 1] = '\0'; // Adiciona o terminador nulo para a string
+    input[length] = '\0'; // Adiciona o terminador nulo para a string
+
+    // Imprimir a string de entrada
+    printf("Entrada: %s\n", input);
 
     if (S(input, &pos) && pos == length) printf("sim\n");
     else printf("nao\n");
